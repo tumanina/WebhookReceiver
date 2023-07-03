@@ -1,0 +1,12 @@
+{
+    "Database": 
+    {
+        "connectionString": "mongodb+srv://tumanina:Qwerty123@cluster0.zkq3plc.mongodb.net/?retryWrites=true&w=majority",
+        "databaseName": "events"
+    },
+    "Auth": 
+    {
+        "user": "Test",
+        "password": "123456"
+    }
+}

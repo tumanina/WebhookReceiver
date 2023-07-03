@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  sessions-api:
+    build:
+      context: .
+      dockerfile: sessions-api/Dockerfile
+    container_name: sessions-api
+    networks:
+      - mynet
+    ports:
+      - 8093:8010
+
+networks:
+  mynet:
+    driver: bridge
