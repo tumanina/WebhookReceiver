@@ -1,0 +1,19 @@
+openapi: '3.0.2'
+info:
+  title: Session API
+  version: '1.0'
+servers:
+  - url: http://localhost:8010/api/v1/
+paths:
+  /sessions:
+    get:
+      description: 'Get sessions'
+      "tags": [
+          "Sessions"
+        ]
+      operationId: GetSessions
+      parameters: []
+      responses:
+        '200':
+          description: OK
+

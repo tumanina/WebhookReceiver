@@ -6,6 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"github.com/go-openapi/runtime/middleware"
+	"github.com/gorilla/mux"
 )
 
 func sessionsEndpoints(w http.ResponseWriter, r *http.Request) {
@@ -36,8 +39,15 @@ func sessionsEndpoints(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	http.HandleFunc("/api/v1/sessions", BasicAuth(sessionsEndpoints))
-	log.Fatal(http.ListenAndServe(":8010", nil))
+	pr := mux.NewRouter()
+
+	pr.Handle("/swagger.yml", http.FileServer(http.Dir("./")))
+	opts := middleware.SwaggerUIOpts{SpecURL: "swagger.yml"}
+	sh := middleware.SwaggerUI(opts, nil)
+	pr.Handle("/docs", sh)
+
+	pr.Handle("/api/v1/sessions", BasicAuth(sessionsEndpoints))
+	log.Fatal(http.ListenAndServe(":8010", pr))
 
 	defer disconnectFromMongo()
 }
